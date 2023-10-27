@@ -4,27 +4,38 @@ import BlogList from "./BlogList";
 
 const Homepage = () => {
 
-const [blogs, setBlogs] = useState([
-    {title: "My First Journey to Guatemala", author: 'Harry', id: 1},
-    {title: "The Endangered Jewels of Africa", author: 'Bayor', id: 2},
-    {title: "The Pace-Setter", author: 'Bayor', id: 3}
-])
-const [name, setName] = useState('Bitcoin')
-useEffect(() => {
-    console.log("UseEffect ran")
-}, [name])
+const [blogs, setBlogs] = useState(null)
+const [is_pending, setIs_pending] = useState(true)
+const [error, setError] = useState(null)
 
-const handleDelete = (id) => {
-    const newBlogs = blogs.filter(blog => blog.id !== id)
-    setBlogs(newBlogs)
-}
+useEffect(() => {
+        fetch("http://localhost:8000/blogs")
+    .then(res => {
+        if(!res.ok){
+            throw Error("Cannot fetch data from the server")
+        }
+       return res.json()
+    })
+    .then(data => {
+        setBlogs(data)
+        setIs_pending(false)
+        setError(null)
+    }).catch(err => {
+        setError(err.message)
+        setIs_pending(false)
+    })
+}, [])
+
+// const handleDelete = (id) => {
+//     const newBlogs = blogs.filter(blog => blog.id !== id)
+//     setBlogs(newBlogs)
+// }
 
     return ( 
         <div className="home">
-           <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete}/>
-           {/* <BlogList blogs={blogs.filter((blog) => blog.author === "Bayor")} title="Bayor's Blog"/> */}
-           <button onClick={() => setName('Ethereum')}>Change Name</button>
-           <p>{name}</p>
+            {error && <div> {error} </div>}
+            {is_pending && <div>Loading...</div>}
+            {blogs && <BlogList blogs={blogs} title="All Blogs" />}
         </div>
      );
 }
