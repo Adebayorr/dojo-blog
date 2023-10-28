@@ -2,11 +2,12 @@ import { useEffect, useState } from "react"
 
 const useFetch = (url) => {
     const [data, setData] = useState(null)
-    const [is_pending, setIs_pending] = useState(true)
-    const [error, setError] = useState(null)
+const [is_pending, setIs_pending] = useState(true)
+const [error, setError] = useState(null)
 
 useEffect(() => {
-        fetch(url)
+        setTimeout(() => {
+            fetch(url)
     .then(res => {
         if(!res.ok){
             throw Error("Cannot fetch data from the server")
@@ -21,7 +22,10 @@ useEffect(() => {
         setError(err.message)
         setIs_pending(false)
     })
-}, [url])
+}, 1000)
+        }, [url])
+
+
 return {data, is_pending, error}
 }
 
