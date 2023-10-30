@@ -79,6 +79,73 @@ button {
   color: #0e0e0e;
 }
 
-.body, .blog-title {
+.body,
+.blog-title {
   margin: 1.2rem 0;
+}
+
+.create {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.create h2 {
+  text-align: center;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.3rem 0.61rem;
+  outline: none;
+  margin-bottom: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+label {
+  width: 100%;
+  outline: none;
+  padding: 0;
+}
+
+textarea {
+  max-height: 300px;
+  min-width: 400px;
+  max-width: 400px;
+}
+
+label:hover,
+input:hover,
+textarea:hover {
+  outline: none;
+}
+
+form button {
+  background-color: #3858a1;
+  display: block;
+  margin: 0 auto;
+  border: none;
+  outline: none;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+form button:hover {
+  border: none;
+  outline: none;
+}
+
+.not-found {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.not-found a {
+  text-decoration: none;
 }
